@@ -29,7 +29,7 @@ def compare_hashes(hash, sorted_files):
             for file in sorted_files:
                 os.remove(file)
     else:
-        print(f"Hashes do not match, join failed, make sure the {sorted_files[-1]} file is in the same directory as the files you are trying to join, and is correct")
+        print(f"Hashes do not match, join failed, make sure the .sha256 file is in the same directory as the files you are trying to join, and is correct")
 
 def extract_number(filename):
     match = re.search(r'\d+$', filename)

@@ -35,7 +35,7 @@ def get_sha256(file_path):
 
 parser = argparse.ArgumentParser(description="Split files to fit on DVD's (or CD's).")
 parser.add_argument('-f', '--file', type=str, help='The file to chunk')
-parser.add_argument('-s', '--size', type=float, help='The size of each file to fit on CD (700MB) or DVD (4.5GB)')
+parser.add_argument('-s', '--size', type=float, help='The size (IN GB) of each file to fit on CD (700MB) or DVD (4.5GB)')
 args = parser.parse_args()
 
 def main():

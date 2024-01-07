@@ -1,5 +1,6 @@
 #!/bin/python3
-import os
+import os, hashlib, argparse
+
 
 def split_file(file_path, chunk_size):
     file_size = os.path.getsize(file_path)
@@ -23,15 +24,30 @@ def split_file(file_path, chunk_size):
             last_chunk_file.write(remaining_data)
             print(f"Chonking file {num_chunks+1} of {num_chunks+1} 100% complete {' ' * 20}", end='\r')
 
+def get_sha256(file_path):
+    sha256_hash = hashlib.sha256()
+    print(f"Hashing file {file_path} {' ' * 20}")
+    with open(file_path, "rb") as f:
+        for byte_block in iter(lambda: f.read(4096),b""):
+            sha256_hash.update(byte_block)
+    print(f"Hashing complete\n{sha256_hash.hexdigest()}")
+    return sha256_hash.hexdigest()
+
+parser = argparse.ArgumentParser(description="Split files to fit on DVD's (or CD's).")
+parser.add_argument('--file', type=str, help='The file to chunk')
+parser.add_argument('--size', type=float, help='The size of each file to fit on CD (700MB) or DVD (4.5GB)')
+args = parser.parse_args()
+
 def main():
-    file_path = input("Enter the file path: ")
-    chunk_size_gb = input("Enter the file chunk size (in GB), default to 4.5 GB: ")
+    file_path = args.file if args.file else input("Enter the file path: ")
+    chunk_size_gb = args.size if args.size else input("Enter the file chunk size (in GB), default to 4.5 GB: ")
     if chunk_size_gb == "":
         chunk_size_gb = 4.5
     else:
         chunk_size_gb = float(chunk_size_gb)
     split_file(file_path, chunk_size_gb)
     print(f"Wrote all files to {os.getcwd()}/{file_path}.part(NUM)")
-
+    with open(f"{file_path}.sha256", "w") as f:
+        f.write(get_sha256(file_path))
 if __name__ == "__main__":
     main()

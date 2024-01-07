@@ -18,7 +18,6 @@ def get_sha256(file_path):
             sha256_hash.update(byte_block)
     return sha256_hash.hexdigest()
 
-
 def compare_hashes(hash, sorted_files):
     with open(sorted_files[-1], "r") as f:
         old_hash = f.read()
@@ -35,7 +34,6 @@ def extract_number(filename):
     match = re.search(r'\d+$', filename)
     return int(match.group()) if match else None
 
-
 def main():
     parser = argparse.ArgumentParser(description="Join files we just split. This expects you to have all of the split files and the .sha256 file in the same directory as the files you want to join.")
     parser.add_argument('-d', '--directory', type=str, help='The directory of the files you want to join, including the .sha256')
@@ -45,9 +43,7 @@ def main():
     files = os.listdir(directory)
     sorted_files = sorted(files, key=extract_number)
     new_file = sorted_files[0].split(".")[0]
-
     join_files(sorted_files, new_file)
-    
     hash=get_sha256(new_file)
     compare_hashes(hash, sorted_files)
     

@@ -19,6 +19,11 @@ def split_file(file_path, chunk_size):
             last_chunk_file.write(remaining_data)
 
 # Usage example
-file_path = '/path/to/your/file.ext'
-chunk_size_gb = 4.5
-split_file(file_path, chunk_size_gb)
+def main():
+    file_path = input("Enter the file path: ")
+    chunk_size_gb = 4.5
+    split_file(file_path, chunk_size_gb)
+
+
+if main == "__main__":
+    main()

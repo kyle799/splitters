@@ -10,6 +10,7 @@ Split files into CD/DVD manageable sizes, and rejoin them when required.
 ## Installation
 
 git clone https://github.com/kyle799/splitters
+
 cd splitter/
 
 ## Usage to get into CD size

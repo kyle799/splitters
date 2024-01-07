@@ -1,4 +1,4 @@
-# Project Name
+# splitter-joiner
 
 Split files into CD/DVD manageable sizes, and rejoin them when required.
 

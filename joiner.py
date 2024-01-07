@@ -4,7 +4,6 @@ import os, hashlib, argparse, re
 def join_files(sorted_files, new_file):
     num=0
     for file in sorted_files:
-        
         if "part" in file:
             num = num + 1
             print(f"Joining file {file} into {new_file} {round((num/len(sorted_files))*100)}% complete {' ' * 20}", end='\r')
@@ -38,7 +37,10 @@ def extract_number(filename):
 
 
 def main():
-    directory = input("Enter the directory of the files you want to join: ")
+    parser = argparse.ArgumentParser(description="Join files we just split. This expects you to have all of the split files and the .sha256 file in the same directory as the files you want to join.")
+    parser.add_argument('-d', '--directory', type=str, help='The directory of the files you want to join, including the .sha256')
+    args = parser.parse_args()
+    directory = args.directory if args.directory else input("Enter the directory of the files you want to join: ")
     os.chdir(directory)
     files = os.listdir(directory)
     sorted_files = sorted(files, key=extract_number)

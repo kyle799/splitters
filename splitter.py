@@ -21,8 +21,8 @@ def split_file(file_path, chunk_size):
         last_chunk_file_name = f'{file_path}.part{num_chunks+1}'
         with open(last_chunk_file_name, 'wb') as last_chunk_file:
             last_chunk_file.write(remaining_data)
+            print(f"Chonking file {num_chunks+1} of {num_chunks+1} 100% complete {' ' * 20}", end='\r')
 
-# Usage example
 def main():
     file_path = input("Enter the file path: ")
     chunk_size_gb = input("Enter the file chunk size (in GB), default to 4.5 GB: ")
@@ -30,9 +30,8 @@ def main():
         chunk_size_gb = 4.5
     else:
         chunk_size_gb = float(chunk_size_gb)
-    
     split_file(file_path, chunk_size_gb)
+    print(f"Wrote all files to {os.getcwd()}/{file_path}.part(NUM)")
 
 if __name__ == "__main__":
     main()
-    
